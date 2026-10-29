@@ -1,6 +1,13 @@
 
 import './App.css'
 import heroImage from './assets/hero.png'
+import shopExterior from './assets/gallery/shop-exterior.png'
+import shopInterior from './assets/gallery/shop-interior.png'
+import fabricCollection from './assets/gallery/fabric-collection.png'
+import matchingMaterials from './assets/gallery/matching-materials.png'
+import stitchingWork from './assets/gallery/stiching-in-progress.png'
+import finishedGarments from './assets/gallery/finished-garments.png'
+import fabricDetails from './assets/gallery/fabric-details.png'
 
 const services = [
   {
@@ -23,6 +30,44 @@ const services = [
   },
 ]
 
+const galleryImages = [
+  {
+    src: shopExterior,
+    title: 'Shop Exterior',
+    alt: 'AI-generated sample of a fabric and tailoring shop exterior',
+  },
+  {
+    src: shopInterior,
+    title: 'Shop Interior',
+    alt: 'AI-generated sample of a fabric shop interior',
+  },
+  {
+    src: fabricCollection,
+    title: 'Fabric Collection',
+    alt: 'AI-generated sample of colourful fabrics on display',
+  },
+  {
+    src: matchingMaterials,
+    title: 'Matching Materials',
+    alt: 'AI-generated sample of decorative trims and embellishments',
+  },
+  {
+    src: stitchingWork,
+    title: 'Stitching in Progress',
+    alt: 'AI-generated sample of stitching work at a sewing machine',
+  },
+  {
+    src: finishedGarments,
+    title: 'Finished Garments',
+    alt: 'AI-generated sample of finished Indian garments',
+  },
+  {
+    src: fabricDetails,
+    title: 'Fabric Details',
+    alt: 'AI-generated close-up of embroidered and patterned fabrics',
+  },
+]
+
 function App() {
   const whatsappLink = 'https://wa.me/91XXXXXXXXXX'
 
@@ -39,6 +84,7 @@ function App() {
         <nav className="site-nav" aria-label="Main navigation">
           <a href="#home">Home</a>
           <a href="#services">Our Services</a>
+          <a href="#gallery">Gallery</a>
           <a href="#contact">Visit Us</a>
         </nav>
       </header>
@@ -112,7 +158,6 @@ function App() {
                 </span>
 
                 <h3>{service.title}</h3>
-
                 <p>{service.description}</p>
 
                 <a href="#contact" className="service-link">
@@ -123,11 +168,52 @@ function App() {
           </div>
         </section>
 
-        <section className="visit-section" aria-labelledby="visit-heading">
+        <section
+          id="gallery"
+          className="gallery-section"
+          aria-labelledby="gallery-heading"
+        >
+          <p className="eyebrow">A GLIMPSE OF OUR WORLD</p>
+
+          <h2 id="gallery-heading">Our Gallery</h2>
+
+          <p className="gallery-intro">
+            Explore fabric inspiration, tailoring, and details
+            that bring outfit ideas to life.
+          </p>
+
+          <div className="gallery-grid">
+            {galleryImages.map((image) => (
+              <article className="gallery-card" key={image.title}>
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading="lazy"
+                />
+
+                <div className="gallery-card-caption">
+                  <h3>{image.title}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <p className="gallery-disclaimer">
+            Sample images are for demonstration only. Actual shop
+            photos will be added after confirmation.
+          </p>
+        </section>
+
+        <section
+          className="visit-section"
+          aria-labelledby="visit-heading"
+        >
           <div>
             <p className="eyebrow">WE LOOK FORWARD TO MEETING YOU</p>
 
-            <h2 id="visit-heading">Let's Talk About Your Next Outfit</h2>
+            <h2 id="visit-heading">
+              Let's Talk About Your Next Outfit
+            </h2>
 
             <p>
               Have a fabric in mind or need help with a tailoring
