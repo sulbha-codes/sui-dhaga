@@ -1,13 +1,17 @@
 
 import './App.css'
+import { useEffect, useState } from 'react' 
 import heroImage from './assets/hero.png'
-import shopExterior from './assets/gallery/shop-exterior.png'
-import shopInterior from './assets/gallery/shop-interior.png'
-import fabricCollection from './assets/gallery/fabric-collection.png'
-import matchingMaterials from './assets/gallery/matching-materials.png'
-import stitchingWork from './assets/gallery/stiching-in-progress.png'
-import finishedGarments from './assets/gallery/finished-garments.png'
-import fabricDetails from './assets/gallery/fabric-details.png'
+import image1 from './assets/1.JPG'
+import image2 from './assets/2.JPG'
+import image3 from './assets/3.JPG'
+import image4 from './assets/4.JPG'
+import image5 from './assets/5.JPG'
+import image6 from './assets/6.JPG'
+import image7 from './assets/7.JPG'
+import image8 from './assets/8.JPG'
+import image9 from './assets/9.JPG'
+import image10 from './assets/10.JPG'
 
 const services = [
   {
@@ -32,107 +36,170 @@ const services = [
 
 const galleryImages = [
   {
-    src: shopExterior,
-    title: 'Shop Exterior',
-    alt: 'AI-generated sample of a fabric and tailoring shop exterior',
-  },
-  {
-    src: shopInterior,
+    src: image1,
     title: 'Shop Interior',
-    alt: 'AI-generated sample of a fabric shop interior',
+    alt: 'View of the fabric collection inside Sui Dhaga',
   },
   {
-    src: fabricCollection,
-    title: 'Fabric Collection',
-    alt: 'AI-generated sample of colourful fabrics on display',
+    src: image2,
+    title: 'Our Fabric Collection',
+    alt: 'Colourful fabrics arranged on shelves',
   },
   {
-    src: matchingMaterials,
+    src: image3,
+    title: 'Tailoring in Progress',
+    alt: 'Tailor working on a garment',
+  },
+  {
+    src: image4,
+    title: 'Fabrics and Materials',
+    alt: 'Fabric and matching materials displayed in the shop',
+  },
+  {
+    src: image5,
+    title: 'Shop Exterior',
+    alt: 'Exterior view of Sui Dhaga tailoring shop',
+  },
+  {
+    src: image6,
     title: 'Matching Materials',
-    alt: 'AI-generated sample of decorative trims and embellishments',
+    alt: 'Colourful matching fabrics and materials',
   },
   {
-    src: stitchingWork,
-    title: 'Stitching in Progress',
-    alt: 'AI-generated sample of stitching work at a sewing machine',
+    src: image7,
+    title: 'Custom Stitching',
+    alt: 'Tailoring workspace inside Sui Dhaga',
   },
   {
-    src: finishedGarments,
-    title: 'Finished Garments',
-    alt: 'AI-generated sample of finished Indian garments',
-  },
-  {
-    src: fabricDetails,
+    src: image8,
     title: 'Fabric Details',
-    alt: 'AI-generated close-up of embroidered and patterned fabrics',
+    alt: 'Close-up view of colourful fabric designs',
+  },
+  {
+    src: image9,
+    title: 'More Shop Views',
+    alt: 'Additional view of the tailoring shop',
+  },
+  {
+    src: image10,
+    title: 'Inside Sui Dhaga',
+    alt: 'Another view of the shop interior',
   },
 ]
-
 function App() {
   const whatsappLink = 'https://wa.me/91XXXXXXXXXX'
 
+  const [ currentIndex, setCurrentIndex] = useState(0)
+  const [visibleCount, setVisibleCount] = useState(3)
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth <=600) {
+        setVisibleCount(1)
+      } else if (window.innerWidth <= 900) {
+        setVisibleCount(2)
+      } else {
+        setVisibleCount(3)
+      }
+    }
+    updateVisibleCount()
+
+    window.addEventListener('resize', updateVisibleCount)
+    
+    return () => {
+      window.removeEventListener('resize', updateVisibleCount)
+    }
+  }, [])
+
+  const maxIndex = Math.max(0, galleryImages.length - visibleCount)
+
+  const nextSlide = () => {
+  setCurrentIndex((current) =>
+    current >= maxIndex ? 0 : current + 1
+  )
+}
+
+const previousSlide = () => {
+  setCurrentIndex((current) =>
+    current <= 0 ? maxIndex : current - 1
+  )
+
+}
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((current) =>
+        current >= maxIndex ? 0 : (current + 1) 
+      )
+     }, 4000)
+
+  return () => clearInterval(interval)
+  }, [maxIndex])
+
   return (
     <>
-      <header className="site-header">
-        <a className="brand" href="#home" aria-label="Sui Dhaga home">
-          Sui Dhaga
-          <span className="brand-subtitle">
-            Custom Tailoring & Matching Centre
-          </span>
+      
+<header className="site-header">
+  <a className="brand" href="#home" aria-label="Sui Dhaga home">
+    <span className="brand-mark" aria-hidden="true">🪡</span>
+    <span className="brand-text">
+      <strong>Sui Dhaga</strong>
+      <small>Custom Tailoring & Matching Centre</small>
+    </span>
+  </a>
+
+  <nav className="site-nav" aria-label="Main navigation">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section id="home" className="hero">
+    <img
+      className="hero-background"
+      src={heroImage}
+      alt="Embroidered purple blouse displayed on a tailoring mannequin"
+      fetchPriority="high"
+    />
+
+    <div className="hero-overlay" />
+
+    <div className="hero-content">
+      <h1>
+        Custom Tailoring
+        <br />
+        For Every Occasion
+      </h1>
+
+      <p className="hero-description">
+        Fabrics <span>•</span> Matching Materials <span>•</span>
+        Tailoring <span>•</span> Alterations
+      </p>
+
+      <div className="hero-actions">
+        <a
+          className="contact-button whatsapp-button"
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span aria-hidden="true">◉</span>
+          Book on WhatsApp
         </a>
 
-        <nav className="site-nav" aria-label="Main navigation">
-          <a href="#home">Home</a>
-          <a href="#services">Our Services</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#contact">Visit Us</a>
-        </nav>
-      </header>
+        <a className="hero-services-button" href="#services">
+          Our Services
+        </a>
+      </div>
+    </div>
+  </section>
 
-      <main>
-        <section id="home" aria-labelledby="hero-heading">
-          <div className="hero-content">
-            <p className="eyebrow">YOUR STYLE, YOUR WAY</p>
+  
 
-            <h1 id="hero-heading">
-              Find Your Fabric.
-              <br />
-              Match Your Style.
-              <br />
-              Get It Tailored.
-            </h1>
-
-            <p>
-              Looking for fabrics, matching materials, or tailoring
-              services? Visit Sui Dhaga to discuss your requirements
-              and explore possibilities for your next outfit.
-            </p>
-
-            <div className="hero-actions">
-              <a
-                className="contact-button"
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Enquire on WhatsApp
-              </a>
-
-              <a className="secondary-link" href="#services">
-                Explore our services →
-              </a>
-            </div>
-          </div>
-
-          <div className="hero-image-wrapper">
-            <img
-              className="hero-image"
-              src={heroImage}
-              alt="Decorative embroidery, colourful threads, and fabrics"
-              fetchPriority="high"
-            />
-          </div>
-        </section>
 
         <section
           id="services"
@@ -182,19 +249,67 @@ function App() {
             that bring outfit ideas to life.
           </p>
 
-          <div className="gallery-grid">
-            {galleryImages.map((image) => (
-              <article className="gallery-card" key={image.title}>
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                />
+          <div className="gallery-carousel">
+            <button
+              className="carousel-arrow gallery-arrow-left"
+              onClick={previousSlide}
+              aria-label="Previous gallery image"
+              type="button"
+            >
+              ‹
+            </button>
 
-                <div className="gallery-card-caption">
-                  <h3>{image.title}</h3>
-                </div>
-              </article>
+            <div className="gallery-track-window">
+              <div
+                className="gallery-track"
+                style={{
+                  transform: `translateX(-${
+                    (currentIndex * 100) / visibleCount
+                  }%)`,
+                }}
+              >
+                {galleryImages.map((image) => (
+                  <article
+                    className="gallery-card"
+                    key={image.title}
+                    style={{ flex: `0 0 ${100 / visibleCount}%` ,}}
+                  >
+                    <img
+                      src={image.src}
+                      alt={image.alt || image.title}
+                      loading="lazy"
+                    />
+
+                    <div className="gallery-card-caption">
+                      <h3>{image.title}</h3>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <button
+              className="gallery-arrow gallery-arrow-right"
+              onClick={nextSlide}
+              aria-label="Next gallery images"
+              type="button"
+            >
+              ›
+            </button>
+          </div>  
+
+         <div className="gallery-dots">
+            {Array.from({ length: maxIndex + 1 }, (_, index) => (
+              <button
+                key={index}
+                className={`gallery-dot ${
+                  currentIndex === index ? 'active' : ''
+                }`}
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Go to gallery position ${index + 1}`}
+                aria-current={currentIndex === index ? 'true' : undefined}
+                type="button"
+              />
             ))}
           </div>
 
@@ -277,7 +392,9 @@ function App() {
 
       <footer className="site-footer">
         <p>© {new Date().getFullYear()} Sui Dhaga</p>
-        <p>Custom Tailoring and Matching Centre · Balewadi, Pune</p>
+        <p>
+          Custom Tailoring and Matching Centre · Balewadi, Pune
+        </p>
         <a href="#home">Back to top ↑</a>
       </footer>
     </>
@@ -285,3 +402,4 @@ function App() {
 }
 
 export default App
+          
