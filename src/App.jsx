@@ -1,7 +1,7 @@
 
 import './App.css'
 import { useEffect, useState } from 'react' 
-import heroImage from './assets/hero.png'
+import heroImage from './assets/blouse-hero.png'
 import image1 from './assets/1.JPG'
 import image2 from './assets/2.JPG'
 import image3 from './assets/3.JPG'
