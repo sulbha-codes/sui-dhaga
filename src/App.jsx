@@ -27,6 +27,7 @@ const services = [
       'Discuss your stitching requirements and clothing preferences with us.',
     icon: '✂️',
   },
+  
   {
     title: 'Alterations & Fitting',
     description:
@@ -48,9 +49,10 @@ const galleryImages = [
   },
   {
     src: image3,
-    title: 'Tailoring in Progress',
-    alt: 'Tailor working on a garment',
+    title: 'Discover Sui Dhaga',
+    alt: 'Colourful fabrics and custom tailoring services at Sui Dhaga',
   },
+
   {
     src: image4,
     title: 'Fabrics and Materials',
@@ -411,10 +413,7 @@ function App() {
             )}
           </div>
 
-          <p className="gallery-disclaimer">
-            Sample images are for demonstration only. Actual shop
-            photos will be added after confirmation.
-          </p>
+          
         </section>
 
         {/* Visit Section */}
