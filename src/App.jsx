@@ -1,6 +1,7 @@
 
 import './App.css'
-import { useEffect, useState } from 'react' 
+import { useEffect, useState } from 'react'
+
 import heroImage from './assets/blouse-hero.png'
 import image1 from './assets/1.JPG'
 import image2 from './assets/2.JPG'
@@ -86,15 +87,19 @@ const galleryImages = [
     alt: 'Another view of the shop interior',
   },
 ]
+
 function App() {
-  const whatsappLink = 'https://wa.me/91XXXXXXXXXX'
+  const whatsappLink = 'https://wa.me/918208301830'
 
-  const [ currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [visibleCount, setVisibleCount] = useState(3)
+  const [menuOpen, setMenuOpen] = useState(false)
 
+  // Update the number of visible gallery images
+  // according to the screen width.
   useEffect(() => {
     const updateVisibleCount = () => {
-      if (window.innerWidth <=600) {
+      if (window.innerWidth <= 600) {
         setVisibleCount(1)
       } else if (window.innerWidth <= 900) {
         setVisibleCount(2)
@@ -102,111 +107,179 @@ function App() {
         setVisibleCount(3)
       }
     }
+
     updateVisibleCount()
 
     window.addEventListener('resize', updateVisibleCount)
-    
+
     return () => {
       window.removeEventListener('resize', updateVisibleCount)
     }
   }, [])
 
-  const maxIndex = Math.max(0, galleryImages.length - visibleCount)
+  const maxIndex = Math.max(
+    0,
+    galleryImages.length - visibleCount
+  )
 
+  // Move to the next gallery image.
   const nextSlide = () => {
-  setCurrentIndex((current) =>
-    current >= maxIndex ? 0 : current + 1
-  )
-}
+    setCurrentIndex((current) =>
+      current >= maxIndex ? 0 : current + 1
+    )
+  }
 
-const previousSlide = () => {
-  setCurrentIndex((current) =>
-    current <= 0 ? maxIndex : current - 1
-  )
+  // Move to the previous gallery image.
+  const previousSlide = () => {
+    setCurrentIndex((current) =>
+      current <= 0 ? maxIndex : current - 1
+    )
+  }
 
-}
-
+  // Automatically change gallery images.
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((current) =>
-        current >= maxIndex ? 0 : (current + 1) 
+        current >= maxIndex ? 0 : current + 1
       )
-     }, 4000)
+    }, 4000)
 
-  return () => clearInterval(interval)
+    return () => clearInterval(interval)
   }, [maxIndex])
+
+  // Close the mobile menu when a navigation link is clicked.
+  const closeMenu = () => {
+    setMenuOpen(false)
+  }
 
   return (
     <>
-      
-<header className="site-header">
-  <a className="brand" href="#home" aria-label="Sui Dhaga home">
-    <span className="brand-mark" aria-hidden="true">🪡</span>
-    <span className="brand-text">
-      <strong>Sui Dhaga</strong>
-      <small>Custom Tailoring & Matching Centre</small>
-    </span>
-  </a>
+      {/* Navigation Header */}
 
-  <nav className="site-nav" aria-label="Main navigation">
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<main>
-  <section id="home" className="hero">
-    <img
-      className="hero-background"
-      src={heroImage}
-      alt="Embroidered purple blouse displayed on a tailoring mannequin"
-      fetchPriority="high"
-    />
-
-    <div className="hero-overlay" />
-
-    <div className="hero-content">
-      <h1>
-        Custom Tailoring
-        <br />
-        For Every Occasion
-      </h1>
-
-      <p className="hero-description">
-        Fabrics <span>•</span> Matching Materials <span>•</span>
-        Tailoring <span>•</span> Alterations
-      </p>
-
-      <div className="hero-actions">
+      <header className="site-header">
         <a
-          className="contact-button whatsapp-button"
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
+          className="brand"
+          href="#home"
+          aria-label="Sui Dhaga home"
+          onClick={closeMenu}
         >
-          <span aria-hidden="true">◉</span>
-          Book on WhatsApp
+          <span className="brand-mark" aria-hidden="true">
+            🪡
+          </span>
+
+          <span className="brand-text">
+            <strong>Sui Dhaga</strong>
+            <small>
+              Custom Tailoring & Matching Centre
+            </small>
+          </span>
         </a>
 
-        <a className="hero-services-button" href="#services">
-          Our Services
-        </a>
-      </div>
-    </div>
-  </section>
+        {/* Mobile hamburger menu */}
 
-  
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label={
+            menuOpen
+              ? 'Close navigation menu'
+              : 'Open navigation menu'
+          }
+          aria-expanded={menuOpen}
+          aria-controls="main-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
+        {/* Navigation links */}
+
+        <nav
+          id="main-navigation"
+          className={`site-nav ${menuOpen ? 'is-open' : ''}`}
+          aria-label="Main navigation"
+        >
+          <a href="#home" onClick={closeMenu}>
+            Home
+          </a>
+
+          <a href="#services" onClick={closeMenu}>
+            Services
+          </a>
+
+          <a href="#gallery" onClick={closeMenu}>
+            Gallery
+          </a>
+
+          <a href="#about" onClick={closeMenu}>
+            About
+          </a>
+
+          <a href="#contact" onClick={closeMenu}>
+            Contact
+          </a>
+        </nav>
+      </header>
+
+      <main>
+        {/* Hero Section */}
+
+        <section id="home" className="hero">
+          <img
+            className="hero-background"
+            src={heroImage}
+            alt="Embroidered purple blouse displayed on a tailoring mannequin"
+            fetchPriority="high"
+          />
+
+          <div className="hero-overlay" />
+
+          <div className="hero-content">
+            <h1>
+              Custom Tailoring
+              <br />
+              For Every Occasion
+            </h1>
+
+            <p className="hero-description">
+              Fabrics <span>•</span> Matching Materials <span>•</span>
+              Tailoring <span>•</span> Alterations
+            </p>
+
+            <div className="hero-actions">
+              <a
+                className="contact-button whatsapp-button"
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {/* <span aria-hidden="true">◉</span> */}
+             <span aria-hidden="true">◉</span>
+           Chat with Us
+              </a>
+
+              <a
+                className="hero-services-button"
+                href="#services"
+              >
+                Our Services
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Services Section */}
 
         <section
           id="services"
           className="services"
           aria-labelledby="services-heading"
         >
-          <p className="eyebrow">WHAT YOU'RE LOOKING FOR</p>
+          <p className="eyebrow">
+            WHAT YOU'RE LOOKING FOR
+          </p>
 
           <h2 id="services-heading">
             Bring Your Outfit Ideas to Life
@@ -219,15 +292,25 @@ const previousSlide = () => {
 
           <div className="services-list">
             {services.map((service) => (
-              <article className="service-card" key={service.title}>
-                <span className="service-icon" aria-hidden="true">
+              <article
+                className="service-card"
+                key={service.title}
+              >
+                <span
+                  className="service-icon"
+                  aria-hidden="true"
+                >
                   {service.icon}
                 </span>
 
                 <h3>{service.title}</h3>
+
                 <p>{service.description}</p>
 
-                <a href="#contact" className="service-link">
+                <a
+                  href="#contact"
+                  className="service-link"
+                >
                   Enquire with us →
                 </a>
               </article>
@@ -235,14 +318,20 @@ const previousSlide = () => {
           </div>
         </section>
 
+        {/* Gallery Section */}
+
         <section
           id="gallery"
           className="gallery-section"
           aria-labelledby="gallery-heading"
         >
-          <p className="eyebrow">A GLIMPSE OF OUR WORLD</p>
+          <p className="eyebrow">
+            A GLIMPSE OF OUR WORLD
+          </p>
 
-          <h2 id="gallery-heading">Our Gallery</h2>
+          <h2 id="gallery-heading">
+            Our Gallery
+          </h2>
 
           <p className="gallery-intro">
             Explore fabric inspiration, tailoring, and details
@@ -251,7 +340,7 @@ const previousSlide = () => {
 
           <div className="gallery-carousel">
             <button
-              className="carousel-arrow gallery-arrow-left"
+              className="gallery-arrow gallery-arrow-left"
               onClick={previousSlide}
               aria-label="Previous gallery image"
               type="button"
@@ -272,7 +361,9 @@ const previousSlide = () => {
                   <article
                     className="gallery-card"
                     key={image.title}
-                    style={{ flex: `0 0 ${100 / visibleCount}%` ,}}
+                    style={{
+                      flex: `0 0 ${100 / visibleCount}%`,
+                    }}
                   >
                     <img
                       src={image.src}
@@ -291,26 +382,33 @@ const previousSlide = () => {
             <button
               className="gallery-arrow gallery-arrow-right"
               onClick={nextSlide}
-              aria-label="Next gallery images"
+              aria-label="Next gallery image"
               type="button"
             >
               ›
             </button>
-          </div>  
+          </div>
 
-         <div className="gallery-dots">
-            {Array.from({ length: maxIndex + 1 }, (_, index) => (
-              <button
-                key={index}
-                className={`gallery-dot ${
-                  currentIndex === index ? 'active' : ''
-                }`}
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Go to gallery position ${index + 1}`}
-                aria-current={currentIndex === index ? 'true' : undefined}
-                type="button"
-              />
-            ))}
+          <div className="gallery-dots">
+            {Array.from(
+              { length: maxIndex + 1 },
+              (_, index) => (
+                <button
+                  key={index}
+                  className={`gallery-dot ${
+                    currentIndex === index ? 'active' : ''
+                  }`}
+                  onClick={() => setCurrentIndex(index)}
+                  aria-label={`Go to gallery position ${index + 1}`}
+                  aria-current={
+                    currentIndex === index
+                      ? 'true'
+                      : undefined
+                  }
+                  type="button"
+                />
+              )
+            )}
           </div>
 
           <p className="gallery-disclaimer">
@@ -319,12 +417,16 @@ const previousSlide = () => {
           </p>
         </section>
 
+        {/* Visit Section */}
+
         <section
           className="visit-section"
           aria-labelledby="visit-heading"
         >
           <div>
-            <p className="eyebrow">WE LOOK FORWARD TO MEETING YOU</p>
+            <p className="eyebrow">
+              WE LOOK FORWARD TO MEETING YOU
+            </p>
 
             <h2 id="visit-heading">
               Let's Talk About Your Next Outfit
@@ -346,14 +448,20 @@ const previousSlide = () => {
           </a>
         </section>
 
+        {/* Contact Section */}
+
         <section
           id="contact"
           className="contact-section"
           aria-labelledby="contact-heading"
         >
-          <p className="eyebrow">FIND US IN BALEWADI</p>
+          <p className="eyebrow">
+            FIND US IN BALEWADI
+          </p>
 
-          <h2 id="contact-heading">Visit Sui Dhaga</h2>
+          <h2 id="contact-heading">
+            Visit Sui Dhaga
+          </h2>
 
           <p>
             We welcome you to visit the shop and discuss your
@@ -390,16 +498,23 @@ const previousSlide = () => {
         </section>
       </main>
 
+      {/* Footer */}
+
       <footer className="site-footer">
-        <p>© {new Date().getFullYear()} Sui Dhaga</p>
+        <p>
+          © {new Date().getFullYear()} Sui Dhaga
+        </p>
+
         <p>
           Custom Tailoring and Matching Centre · Balewadi, Pune
         </p>
-        <a href="#home">Back to top ↑</a>
+
+        <a href="#home">
+          Back to top ↑
+        </a>
       </footer>
     </>
   )
 }
 
 export default App
-          
