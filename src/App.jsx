@@ -1,6 +1,5 @@
-
 import './App.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import heroImage from './assets/blouse-hero.png'
 import image1 from './assets/1.JPG'
@@ -27,7 +26,6 @@ const services = [
       'Discuss your stitching requirements and clothing preferences with us.',
     icon: '✂️',
   },
-  
   {
     title: 'Alterations & Fitting',
     description:
@@ -52,7 +50,6 @@ const galleryImages = [
     title: 'Discover Sui Dhaga',
     alt: 'Colourful fabrics and custom tailoring services at Sui Dhaga',
   },
-
   {
     src: image4,
     title: 'Fabrics and Materials',
@@ -93,66 +90,8 @@ const galleryImages = [
 function App() {
   const whatsappLink = 'https://wa.me/918208301830'
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [visibleCount, setVisibleCount] = useState(3)
   const [menuOpen, setMenuOpen] = useState(false)
 
-  // Update the number of visible gallery images
-  // according to the screen width.
-  useEffect(() => {
-    const updateVisibleCount = () => {
-      if (window.innerWidth <= 600) {
-        setVisibleCount(1)
-      } else if (window.innerWidth <= 900) {
-        setVisibleCount(2)
-      } else {
-        setVisibleCount(3)
-      }
-    }
-
-    updateVisibleCount()
-
-    window.addEventListener('resize', updateVisibleCount)
-
-    return () => {
-      window.removeEventListener('resize', updateVisibleCount)
-    }
-  }, [])
-
-   const maxIndex = Math.max(
-  0,
-  galleryImages.length - visibleCount
-)
-
-const safeIndex = Math.min(currentIndex, maxIndex)
-
-
-  // Move to the next gallery image.
-  const nextSlide = () => {
-    setCurrentIndex((current) =>
-      current >= maxIndex ? 0 : current + 1
-    )
-  }
-
-  // Move to the previous gallery image.
-  const previousSlide = () => {
-    setCurrentIndex((current) =>
-      current <= 0 ? maxIndex : current - 1
-    )
-  }
-
-  // Automatically change gallery images.
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((current) =>
-        current >= maxIndex ? 0 : current + 1
-      )
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [maxIndex])
-
-  // Close the mobile menu when a navigation link is clicked.
   const closeMenu = () => {
     setMenuOpen(false)
   }
@@ -174,37 +113,35 @@ const safeIndex = Math.min(currentIndex, maxIndex)
 
           <span className="brand-text">
             <strong>Sui Dhaga</strong>
-            <small>
-              Custom Tailoring & Matching Centre
-            </small>
+            <small>Custom Tailoring & Matching Centre</small>
           </span>
         </a>
 
-        {/* NEW: WhatsApp button in header */}
+        {/* WhatsApp button in header */}
 
         <a
-  className="header-whatsapp"
-  href={whatsappLink}
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Chat with Sui Dhaga on WhatsApp"
->
-  {/* WhatsApp icon */}
-  <svg
-    viewBox="0 0 32 32"
-    width="30"
-    height="30"
-    aria-hidden="true"
-  >
-    <circle cx="16" cy="16" r="16" fill="#f5f1e8" />
-    <path
-      fill="#217b52"
-      d="M16 4.5A11.4 11.4 0 0 0 6.2 21.8L4.7 27l5.4-1.4A11.5 11.5 0 1 0 16 4.5Zm0 20.7a9.2 9.2 0 0 1-4.7-1.3l-.3-.2-3.2.8.9-3.1-.2-.3a9.2 9.2 0 1 1 7.5 4.1Zm5.1-6.9c-.3-.2-1.7-.9-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z"
-    />
-  </svg>
+          className="header-whatsapp"
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with Sui Dhaga on WhatsApp"
+        >
+          <svg
+            viewBox="0 0 32 32"
+            width="30"
+            height="30"
+            aria-hidden="true"
+          >
+            <circle cx="16" cy="16" r="16" fill="#f5f1e8" />
 
-  <span>WhatsApp</span>
-</a>
+            <path
+              fill="#217b52"
+              d="M16 4.5A11.4 11.4 0 0 0 6.2 21.8L4.7 27l5.4-1.4A11.5 11.5 0 1 0 16 4.5Zm0 20.7a9.2 9.2 0 0 1-4.7-1.3l-.3-.2-3.2.8.9-3.1-.2-.3a9.2 9.2 0 1 1 7.5 4.1Zm5.1-6.9c-.3-.2-1.7-.9-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z"
+            />
+          </svg>
+
+          <span>WhatsApp</span>
+        </a>
 
         {/* Mobile hamburger menu */}
 
@@ -244,8 +181,6 @@ const safeIndex = Math.min(currentIndex, maxIndex)
             Gallery
           </a>
 
-          
-
           <a href="#contact" onClick={closeMenu}>
             Contact
           </a>
@@ -284,10 +219,9 @@ const safeIndex = Math.min(currentIndex, maxIndex)
                 target="_blank"
                 rel="noopener noreferrer"
               >
-              
-              <span aria-hidden="true">◉</span>
-              Chat with Us
-            </a>
+                <span aria-hidden="true">◉</span>
+                Chat with Us
+              </a>
 
               <a
                 className="hero-services-button"
@@ -347,7 +281,7 @@ const safeIndex = Math.min(currentIndex, maxIndex)
           </div>
         </section>
 
-        {/* Gallery Section */}
+        {/* Gallery Section — natural vertical scrolling */}
 
         <section
           id="gallery"
@@ -367,80 +301,24 @@ const safeIndex = Math.min(currentIndex, maxIndex)
             that bring outfit ideas to life.
           </p>
 
-          <div className="gallery-carousel">
-            <button
-              className="gallery-arrow gallery-arrow-left"
-              onClick={previousSlide}
-              aria-label="Previous gallery image"
-              type="button"
-            >
-              ‹
-            </button>
-
-            <div className="gallery-track-window">
-              <div
-                className="gallery-track"
-                style={{
-                  transform: `translateX(-${
-                    (currentIndex * 100) / visibleCount
-                  }%)`,
-                }}
+          <div className="gallery-scroll">
+            {galleryImages.map((image, index) => (
+              <article
+                className="gallery-card"
+                key={image.title}
               >
-                {galleryImages.map((image,index) => (
-                  <article
-                    className="gallery-card"
-                    key={image.title}
-                    style={{
-                      flex: `0 0 ${100 / visibleCount}%`,
-                    }}
-                  >
-                    <img
-                      src={image.src}
-                      alt={image.alt || image.title}
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    />
-
-                    <div className="gallery-card-caption">
-                      <h3>{image.title}</h3>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <button
-              className="gallery-arrow gallery-arrow-right"
-              onClick={nextSlide}
-              aria-label="Next gallery image"
-              type="button"
-            >
-              ›
-            </button>
-          </div>
-
-          <div className="gallery-dots">
-            {Array.from(
-              { length: maxIndex + 1 },
-              (_, index) => (
-                <button
-                  key={index}
-                  className={`gallery-dot ${
-                    currentIndex === index ? 'active' : ''
-                  }`}
-                  onClick={() => setCurrentIndex(index)}
-                  aria-label={`Go to gallery position ${index + 1}`}
-                  aria-current={
-                    currentIndex === index
-                      ? 'true'
-                      : undefined
-                  }
-                  type="button"
+                <img
+                  src={image.src}
+                  alt={image.alt || image.title}
+                  loading={index === 0 ? 'eager' : 'lazy'}
                 />
-              )
-            )}
-          </div>
 
-          
+                <div className="gallery-card-caption">
+                  <h3>{image.title}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
         {/* Visit Section */}
