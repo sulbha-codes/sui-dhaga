@@ -9,11 +9,6 @@ The website introduces the shop’s services, showcases its fabric and tailoring
 🔗 [View Live Website](https://sui-dhaga-efz5.vercel.app/)
 
 
-
-## Screenshots
-
-<!-- Add your project screenshots here -->
-
 ## Features
 
 - **Responsive Design** — Optimized for desktop, tablet, and mobile screens.
@@ -97,11 +92,6 @@ sui-dhaga/
 ```
 
 ## Future Improvements
-
-- Add an appointment request form.
-- Add backend support for managing customer enquiries.
-- Improve gallery accessibility and image loading.
-- Add search engine optimization and metadata.
 - Add customer reviews and testimonials.
 
 ## Author
@@ -110,8 +100,8 @@ sui-dhaga/
 
 Frontend Developer
 
-- GitHub: [Your GitHub Profile](#)
-- LinkedIn: [Your LinkedIn Profile](#)
+- [ GitHub ](https://github.com/sulbha-codes)
+- [LinkedIn](https://www.linkedin.com/in/sulbha-r-605974301)
 
 ---
 
