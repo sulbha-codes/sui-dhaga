@@ -119,10 +119,13 @@ function App() {
     }
   }, [])
 
-  const maxIndex = Math.max(
-    0,
-    galleryImages.length - visibleCount
-  )
+   const maxIndex = Math.max(
+  0,
+  galleryImages.length - visibleCount
+)
+
+const safeIndex = Math.min(currentIndex, maxIndex)
+
 
   // Move to the next gallery image.
   const nextSlide = () => {
@@ -215,9 +218,7 @@ function App() {
             Gallery
           </a>
 
-          <a href="#about" onClick={closeMenu}>
-            About
-          </a>
+          
 
           <a href="#contact" onClick={closeMenu}>
             Contact
@@ -257,10 +258,10 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {/* <span aria-hidden="true">◉</span> */}
-             <span aria-hidden="true">◉</span>
-           Chat with Us
-              </a>
+              
+              <span aria-hidden="true">◉</span>
+              Chat with Us
+            </a>
 
               <a
                 className="hero-services-button"
@@ -359,7 +360,7 @@ function App() {
                   }%)`,
                 }}
               >
-                {galleryImages.map((image) => (
+                {galleryImages.map((image,index) => (
                   <article
                     className="gallery-card"
                     key={image.title}
@@ -370,7 +371,7 @@ function App() {
                     <img
                       src={image.src}
                       alt={image.alt || image.title}
-                      loading="lazy"
+                    loading={index === 0 ? 'eager' : 'lazy'}
                     />
 
                     <div className="gallery-card-caption">
