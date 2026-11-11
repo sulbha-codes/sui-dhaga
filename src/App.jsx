@@ -2,16 +2,16 @@ import './App.css'
 import { useState } from 'react'
 
 import heroImage from './assets/blouse-hero.png'
-import image1 from './assets/1.JPG'
-import image2 from './assets/2.JPG'
-import image3 from './assets/3.JPG'
-import image4 from './assets/4.JPG'
-import image5 from './assets/5.JPG'
-import image6 from './assets/6.JPG'
-import image7 from './assets/7.JPG'
-import image8 from './assets/8.JPG'
-import image9 from './assets/9.JPG'
-import image10 from './assets/10.JPG'
+import image1 from './assets/1.webp'
+import image2 from './assets/2.webp'
+import image3 from './assets/3.webp'
+import image4 from './assets/4.webp'
+import image5 from './assets/5.webp'
+import image6 from './assets/6.webp'
+import image7 from './assets/7.webp'
+import image8 from './assets/8.webp'
+import image9 from './assets/9.webp'
+import image10 from './assets/10.webp'
 
 const services = [
   {
@@ -311,6 +311,7 @@ function App() {
                   src={image.src}
                   alt={image.alt || image.title}
                   loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
                 />
 
                 <div className="gallery-card-caption">
@@ -421,4 +422,4 @@ function App() {
   )
 }
 
-export default App
+export default App                                                                                                                                                                                     
