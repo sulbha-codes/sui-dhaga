@@ -64,9 +64,9 @@ function Navbar() {
         aria-controls="main-navigation"
         onClick={() => setMenuOpen((open) => !open)}
       >
-        <span></span>
-        <span></span>
-        <span></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </button>
 
       <nav

@@ -2,22 +2,12 @@
    Global styles
 ========================= */
 
-* {
-  box-sizing: border-box;
-}
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 24px;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #fff9f3;
-  color: #48212c;
-}
 
 a {
   -webkit-tap-highlight-color: transparent;
@@ -740,13 +730,15 @@ main {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     padding: 14px 5%;
   }
 
   .brand {
     justify-content: flex-start;
     flex-direction: row;
+    min-width: 0;
+    flex:1;
     align-items: center;
     gap: 9px;
   }
@@ -1038,6 +1030,7 @@ main {
 
 .header-whatsapp {
   display: inline-flex;
+  padding: 9px 12px;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -1045,7 +1038,7 @@ main {
   border-radius: 999px;
   background: #218653;
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -1062,7 +1055,7 @@ main {
 
 /* Mobile header layout */
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .site-header {
     display: flex;
     align-items: center;
@@ -1078,4 +1071,4 @@ main {
     padding: 9px 12px;
     font-size: 0.8rem;
   }
-}
+} */
